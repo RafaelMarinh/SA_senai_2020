@@ -46,12 +46,6 @@ public class UsuarioController {
         }
     }
 
-//    @GetMapping(path = "/all") // Endpoint que recebe apenas requisições GET para retornar todos os usuários
-//    public @ResponseBody
-//    Iterable<Usuario> getAllUsers() {
-//        // Retorna um JSON com todos os usuários
-//        return usuarioRepository.findAll();
-//    }
 
     @GetMapping(path = "/usuarios") // Endpoint que recebe apenas requisições GET para retornar todos os usuários
     public @ResponseBody ResponseEntity<Iterable<Usuario>> getAllUsers() {
@@ -67,16 +61,6 @@ public class UsuarioController {
         }
     }
 
-//    @PostMapping(path = "/remove") // Endpoint que recebe apenas requisições POST para inclusão de usuários
-//    public @ResponseBody
-//    String removeUser(@RequestParam Integer id) {
-//        // @ResponseBody significa que a String retornada é a resposta
-//        // @RequestParam significa que é um parâmetro da solicitação GET ou POST
-//
-//        usuarioRepository.deleteById(id);
-//        return "Usuário excluído do banco de dados";
-//    }
-
     @DeleteMapping("/usuarios/{id}") // Endpoint que recebe apenas requisições DELETE para exclusão de usuários
     public @ResponseBody ResponseEntity<HttpStatus> removeUser(@PathVariable("id") Integer id) {
 
@@ -88,23 +72,7 @@ public class UsuarioController {
         }
     }
 
-
-//    @PostMapping(path = "/update") // Endpoint que recebe apenas requisições POST para atualização de usuários
-//    public @ResponseBody
-//    String updateUser(@RequestParam Integer id, @RequestParam String nome
-//            , @RequestParam String email, @RequestParam String senha) {
-//        // @ResponseBody significa que a String retornada é a resposta
-//        // @RequestParam significa que é um parâmetro da solicitação GET ou POST
-//
-//        Usuario u = usuarioRepository.findById(id).get();
-//        u.setNome(nome);
-//        u.setEmail(email);
-//        u.setSenha(senha);
-//        usuarioRepository.save(u);
-//        return "Usuário com id " + u.getId() + " atualizado no banco de dados";
-//    }
-
-    @PutMapping("/usuarios/{id}") // Endpoint que recebe apenas requisições PUT para atualização de usuários
+    @PutMapping("/usuarios/{id}")
     public @ResponseBody ResponseEntity<Usuario> updateUser(@PathVariable("id") Integer id, @RequestBody Usuario usuario) {
 
         Optional<Usuario> usuarioData = usuarioRepository.findById(id);
@@ -113,15 +81,14 @@ public class UsuarioController {
             Usuario updatedUser = usuarioData.get();
             updatedUser.setNome(usuario.getNome());
             updatedUser.setEmail(usuario.getEmail());
-            updatedUser.setSenha(usuario.getSenha());
+            updatedUser.setPassword(usuario.getPassword());
             return new ResponseEntity<>(usuarioRepository.save(updatedUser), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    // TODO atualizar
-    @PostMapping(path = "/usuarios/allbyname") // Endpoint que recebe apenas requisições POST para inclusão de usuários
+    @PostMapping(path = "/usuarios/allbyname")
     public @ResponseBody Iterable<Usuario> findByName(@RequestParam String nome) {
         // @ResponseBody significa que a String retornada é a resposta
         // @RequestParam significa que é um parâmetro da solicitação GET ou POST

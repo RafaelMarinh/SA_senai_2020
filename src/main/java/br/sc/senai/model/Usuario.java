@@ -3,6 +3,7 @@ package br.sc.senai.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "usuarios")
 public class Usuario {
 
     @Id
@@ -11,13 +12,15 @@ public class Usuario {
 
     private String nome;
 
+    private String username;
+
+    private String cpf;
+
     private String email;
 
-    private String senha;
+    private String phone;
 
-    @ManyToOne
-    @JoinColumn(name="perfil_id")
-    private Perfil perfil;
+    private String password;
 
     public Integer getId() {
         return id;
@@ -35,6 +38,22 @@ public class Usuario {
         this.nome = nome;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -43,19 +62,19 @@ public class Usuario {
         this.email = email;
     }
 
-    public String getSenha() {
-        return senha;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public Perfil getPerfil() {
-        return perfil;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPerfil(Perfil perfil) {
-        this.perfil = perfil;
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
